@@ -1,0 +1,50 @@
+.table {
+    width: 100vw;
+    font-size: 1.3rem;
+    border: 1px solid;
+    max-width: 100vw;
+}
+
+.table__header {
+    font-weight: bold;
+
+}
+.table__header-item {
+    border: 1px solid;
+    padding: 10px;
+    background-color: rgba(128, 128, 128, 0.175);
+    
+}
+
+.table__item {
+    padding: 10px;
+    border: 1px solid;
+    text-align: center;
+    vertical-align: middle;
+    /* word-wrap: break-word; */
+    /* line-break: strict; */
+    overflow-wrap: break-word;
+    cursor: pointer;
+}
+.table__icon:first-child {
+    margin-right: 15px ;
+}
+.name {
+    max-width: 10vw;
+}
+.qtd {
+    max-width: 5vw;
+}
+.category {
+    max-width: 5vw;
+}
+.description {
+    max-width: 10vw;
+}
+.options {
+    max-width: 10vw;
+    /* display: flex; */
+    /* width: 100%; */
+    /* flex-grow: 1; */
+}
+

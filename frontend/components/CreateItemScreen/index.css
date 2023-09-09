@@ -1,0 +1,40 @@
+.createItems__screen {
+    width: 400px;
+    height: 500px;
+    margin-left: 50%;
+    transform: translate(-50%);
+    position: fixed;
+    background-color: white;
+    border: 2px solid; 
+    border-radius: 10px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.createItems__inputs {
+    margin-bottom: 15px;
+    width: 80%;
+}
+.createItems__inputs:first-child {
+    margin-top: 30px;
+}
+
+.createItems__input {
+    width: 100%;
+}
+
+.createItems__input {
+    font-size: 1.3rem;
+}
+
+.createItems__input--textarea {
+    resize: none;
+    height: 140px;
+}
+
+.createItems__text {
+    font-size: 1.3rem;
+    margin-bottom: 5px;
+}

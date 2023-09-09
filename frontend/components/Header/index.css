@@ -1,0 +1,26 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgb(190, 255, 190);
+    padding: 25px;
+    margin-bottom: 25px;
+}
+.header__name {
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: default;
+}
+.header__buttons {
+    margin-right: 50px;
+}
+.header__button {
+    border: none; 
+    background-color: inherit;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1.5rem;
+}
+.header__button:hover {
+    background-color: rgb(146, 249, 146);
+}
