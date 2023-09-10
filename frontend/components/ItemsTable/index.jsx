@@ -1,6 +1,6 @@
 import { useRecoilState } from "recoil"
 import { items } from "../../atoms/items"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import axios from 'axios';
 import './index.css'
 
@@ -20,16 +20,17 @@ const CATEGORY = [
     ['13', 'Outros'],
 ]
 
-export const ItemsTable = ({setItemEdit, itemEdit}) => {
+export const ItemsTable = ({setItemEdit, itemEdit, filter, setFilter}) => {
     const [storage, setStorage] = useRecoilState(items)
+    const [actualStorage, setActualStorage] = useState(storage)
+
     const loadData = () => {
         axios.get('http://localhost:8000/items/')
         .then(response => {
-            // console.log('Sucesso! ', response)
             setStorage(response.data)
+            setActualStorage(response.data)
         })
         .catch(error => {
-            // console.log(error);
             window.alert("Erro ao conectar-se ao servidor! Por favor tente novamente!")
             setStorage([])
         });
@@ -38,6 +39,24 @@ export const ItemsTable = ({setItemEdit, itemEdit}) => {
     useEffect(() => {
         loadData() 
     }, [])
+
+    // Gerar regex para fazer o teste do filtro de pesquisa - testa se o nome passado começa com o valor que está em filter
+    const test = name => { 
+        return (new RegExp(`${filter}`, 'gi').test(name))
+    }
+
+    useEffect(() => {
+        if (filter == '') {
+            setActualStorage(storage)
+        } else {
+            setActualStorage(storage.filter(item => test(item.name)))
+        }
+    }, [filter])
+
+    // Manter o actual storage atualizado nas mudanças do storage (DELETE, POST E PATCH)
+    useEffect(()=>{
+        setActualStorage(storage.filter(item => test(item.name)))
+    }, [storage])
 
     const deleteItem = item => {
         // deletar do servidor 
@@ -50,7 +69,7 @@ export const ItemsTable = ({setItemEdit, itemEdit}) => {
             setStorage(data.filter(act => act != item))
         })
         .catch(error=>{
-            // console.log(error)
+            console.log(error)
             window.alert("Erro ao conectar-se ao servidor! Por favor tente novamente!")
         })
     } 
@@ -66,7 +85,7 @@ export const ItemsTable = ({setItemEdit, itemEdit}) => {
             </tr>
 
             {
-                storage.map(item => {
+                actualStorage.map(item => {
                     // console.log(item)
                     return(
                         <tr className="table__row">

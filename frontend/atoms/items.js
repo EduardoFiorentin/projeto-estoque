@@ -41,4 +41,8 @@ export const items = atom({
     default: []
     
 })
+// export const itemsFilter = atom({
+//     key: 'itemsFilter',
+//     default: []
+// })
 

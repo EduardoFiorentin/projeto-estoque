@@ -24,3 +24,20 @@
 .header__button:hover {
     background-color: rgb(146, 249, 146);
 }
+
+.header__search-input {
+    font-size: 1.3rem;
+    background-color:rgb(202, 246, 202);
+    border: 1px solid;
+}
+
+.header__search-input:focus {
+    border: 1px solid;
+    border-width: 1px !important;
+}
+.header__search-button {
+    font-size: 1.3rem;
+    margin-left: 10px;
+    cursor: pointer;
+    /* font-family: Arial, Helvetica, sans-serif; */
+}

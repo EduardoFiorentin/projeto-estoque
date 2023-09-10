@@ -10,13 +10,15 @@ function App() {
 
   const [menu, setMenu] = useState(false)
   const [itemEdit, setItemEdit] = useState(false) // usado em ItemsTable 
-  
+  const [filter, setFilter] = useState('')
+
+
   return (
     <RecoilRoot>
-      <Header menu={menu} setMenu={setMenu}/>
+      <Header menu={menu} setMenu={setMenu} filter={filter} setFilter={setFilter}/>
       {menu ? <CreateItemScreen setMenu={setMenu}/> : null}
       {itemEdit ? <CreateEditTable item={itemEdit} setItemEdit={setItemEdit}/> : null}
-      <ItemsTable itemEdit={itemEdit} setItemEdit={setItemEdit}/>
+      <ItemsTable itemEdit={itemEdit} setItemEdit={setItemEdit} filter={filter} setFilter={setFilter}/>
     </RecoilRoot>
   )
 }
