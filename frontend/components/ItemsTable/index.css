@@ -5,6 +5,12 @@
     max-width: 95vw;
     margin: 0px auto 20px auto;
 }
+.table__title {
+    font-size: 2rem;
+    padding-bottom: 10px;
+    margin-left: 30px;
+    font-family: 'Kanit', sans-serif;
+}
 
 .table__header {
     font-weight: bold;

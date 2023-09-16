@@ -40,7 +40,7 @@ export const ItemsTable = ({setItemEdit, itemEdit, filter, setFilter}) => {
         loadData() 
     }, [])
 
-    // Gerar regex para fazer o teste do filtro de pesquisa - testa se o nome passado começa com o valor que está em filter
+    // Gerar regex para fazer o teste do filtro de pesquisa 
     const test = name => { 
         return (new RegExp(`${filter}`, 'gi').test(name))
     }
@@ -60,12 +60,9 @@ export const ItemsTable = ({setItemEdit, itemEdit, filter, setFilter}) => {
 
     const deleteItem = item => {
         // deletar do servidor 
-        // console.log(item.id)
         axios.delete(`http://localhost:8000/items/${item.id}/`)
         .then(response => {
-            // deletar da tela - state 
             var data = storage
-            // console.log(data)
             setStorage(data.filter(act => act != item))
         })
         .catch(error=>{
@@ -75,43 +72,44 @@ export const ItemsTable = ({setItemEdit, itemEdit, filter, setFilter}) => {
     } 
     
     return (
-        <table className="table">
-            <tr className="table__header">
-                <th className="table__header-item name">Nome</th>
-                <th className="table__header-item category">Categoria</th>
-                <th className="table__header-item qtd">Quantidade</th>
-                <th className="table__header-item description">Descrissão</th>
-                <th className="table__header-item options">Opções</th>
-            </tr>
-
-            {
-                actualStorage.map(item => {
-                    // console.log(item)
-                    return(
-                        <tr className="table__row">
-                            <th className="table__item name">{item.name}</th>
-                            <th className="table__item category">{CATEGORY[item.category-1][1]}</th>
-                            <th className="table__item qtd">{item.qtd}</th>
-                            <th className="table__item description">{item.description}</th>
-                            <th className="table__item options">
-                                <img 
-                                    src="../../assets/img/delete.png" 
-                                    alt=""  
-                                    className="table__icon" 
-                                    onClick={() => {deleteItem(item)}}
-                                />
-                                <img 
-                                    src="../../assets/img/edit.png" 
-                                    alt="" 
-                                    className="table__icon"
-                                    onClick={() => {setItemEdit(item)}}
-                                    />  
-                            </th>
-                        </tr>
-                    )
-                })
-            }
+        <div>
+            <p className="table__title">Inventário</p>
+            <table className="table">
+                <tr className="table__header">
+                    <th className="table__header-item name">Nome</th>
+                    <th className="table__header-item category">Categoria</th>
+                    <th className="table__header-item qtd">Quantidade</th>
+                    <th className="table__header-item description">Descrissão</th>
+                    <th className="table__header-item options">Opções</th>
+                </tr>
+                {
+                    actualStorage.map(item => {
+                        return(
+                            <tr className="table__row">
+                                <th className="table__item name">{item.name}</th>
+                                <th className="table__item category">{CATEGORY[item.category-1][1]}</th>
+                                <th className="table__item qtd">{item.qtd}</th>
+                                <th className="table__item description">{item.description}</th>
+                                <th className="table__item options">
+                                    <img
+                                        src="../../assets/img/delete.png"
+                                        alt=""
+                                        className="table__icon"
+                                        onClick={() => {deleteItem(item)}}
+                                    />
+                                    <img
+                                        src="../../assets/img/edit.png"
+                                        alt=""
+                                        className="table__icon"
+                                        onClick={() => {setItemEdit(item)}}
+                                        />
+                                </th>
+                            </tr>
+                        )
+                    })
+                }
             
-        </table>
+            </table>
+        </div>
     )
 }

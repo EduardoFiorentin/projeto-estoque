@@ -3,11 +3,11 @@
     height: 500px;
     margin-left: 50%;
     transform: translate(-50%);
-    position: fixed;
     background-color: white;
     border: 2px solid; 
     border-radius: 10px;
     position: absolute;
+    position: fixed;
     display: flex;
     flex-direction: column;
     align-items: center;

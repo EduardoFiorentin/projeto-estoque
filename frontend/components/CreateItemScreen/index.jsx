@@ -36,11 +36,9 @@ export const CreateItemScreen = ({setMenu}) => {
         }
         axios.post(`http://localhost:8000/items/`, newItem)
         .then(response => {
-            // console.log('response: ', response.data)
             setStorage([...storage, response.data])
         })
         .catch(error=>{
-            // console.log(error)
             window.alert("Erro ao conectar-se ao servidor! Por favor tente novamente!")
         })
     }
