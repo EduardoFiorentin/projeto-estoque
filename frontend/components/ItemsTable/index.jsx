@@ -23,6 +23,7 @@ const CATEGORY = [
 export const ItemsTable = ({setItemEdit, itemEdit, filter, setFilter}) => {
     const [storage, setStorage] = useRecoilState(items)
     const [actualStorage, setActualStorage] = useState(storage)
+    const [waiting, setWaiting] = useState(false)
 
     const loadData = () => {
         axios.get('http://localhost:8000/items/')
@@ -59,13 +60,16 @@ export const ItemsTable = ({setItemEdit, itemEdit, filter, setFilter}) => {
     }, [storage])
 
     const deleteItem = item => {
+        setWaiting(true)
         // deletar do servidor 
         axios.delete(`http://localhost:8000/items/${item.id}/`)
         .then(response => {
+            setWaiting(false)
             var data = storage
             setStorage(data.filter(act => act != item))
         })
         .catch(error=>{
+            setWaiting(false)
             console.log(error)
             window.alert("Erro ao conectar-se ao servidor! Por favor tente novamente!")
         })
@@ -92,6 +96,8 @@ export const ItemsTable = ({setItemEdit, itemEdit, filter, setFilter}) => {
                                 <th className="table__item description">{item.description}</th>
                                 <th className="table__item options">
                                     <img
+                                        // src={waiting 
+                                        //      ? "../../assets/img/loading.png" : "../../assets/img/delete.png"}
                                         src="../../assets/img/delete.png"
                                         alt=""
                                         className="table__icon"

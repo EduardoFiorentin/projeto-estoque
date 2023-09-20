@@ -37,7 +37,10 @@
     border-radius: 5px;
 }
 
-
+.header__search {
+    display: flex;
+    align-items: center;
+}
 .header__search-input:focus {
     border: 1px solid;
     border-width: 1px !important;

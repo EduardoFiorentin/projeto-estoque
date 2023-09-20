@@ -28,10 +28,12 @@ export const CreateEditTable = ({item, setItemEdit}) => {
     const [category, setCategory] = useState(item.category)
 
     const [storage, setStorage] = useRecoilState(items)
+    const [waiting, setWaiting] = useState(false)
 
     function replaceItemAtIndex(arr, index, newValue) {  return [...arr.slice(0, index), newValue, ...arr.slice(index + 1)]; }
 
     const saveData = () =>{
+        setWaiting(true)
         let  data = storage
         // console.log(data)
         const index = data.indexOf(item)
@@ -47,22 +49,18 @@ export const CreateEditTable = ({item, setItemEdit}) => {
 
         axios.patch(`http://localhost:8000/items/${item.id}/`, newItem)
         .then(response => {
-            
+            setWaiting(false)
             data = replaceItemAtIndex(data, index, newItem)
             setStorage(data)
-    
+            
             setItemEdit(false)
             
             setStorage(data.filter(act => act != item))
         })
         .catch(error=>{
-            // console.log(error)
+            setWaiting(false)
             window.alert("Erro ao conectar-se ao servidor! Por favor tente novamente!")
         })
-
-
-        // setStorage()
-
     }
 
 
@@ -94,8 +92,14 @@ export const CreateEditTable = ({item, setItemEdit}) => {
                 </select>
             </div>
 
-            <button className='createItems__text' onClick={saveData}>Salvar Alterações</button>
-            <button className='createItems__text' onClick={() => {
+            <button className='createItems__text createItems__button' onClick={saveData}>
+                {
+                    waiting 
+                    ? <img src="../../assets/img/loading.png" alt="" className='createItems__loading'/>
+                    : "Salvar"
+                }
+                </button>
+            <button className='createItems__text createItems__button' onClick={() => {
                 // console.log(category)
                 setItemEdit(false)
             }}>Cancelar</button>

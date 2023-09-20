@@ -28,17 +28,21 @@ export const CreateItemScreen = ({setMenu}) => {
     const [category, setCategory] = useState('')
 
     const [storage, setStorage] = useRecoilState(items)
+    const [waiting, setWaiting] = useState(false)
 
 
     const createItem = () => {
+        setWaiting(true)
         const newItem = {
             name, qtd, description, category
         }
         axios.post(`http://localhost:8000/items/`, newItem)
         .then(response => {
+            setWaiting(false)
             setStorage([...storage, response.data])
         })
         .catch(error=>{
+            setWaiting(false)
             window.alert("Erro ao conectar-se ao servidor! Por favor tente novamente!")
         })
     }
@@ -66,8 +70,14 @@ export const CreateItemScreen = ({setMenu}) => {
                 </select>
             </div>
 
-            <button className='createItems__text' onClick={createItem}>Criar Item</button>
-            <button className='createItems__text' onClick={() => setMenu(false)}>Fechar</button>
+            <button className='createItems__text createItems__button' onClick={createItem}>
+            {
+                waiting 
+                ? <img src="../../assets/img/loading.png" alt="" className='createItems__loading'/>
+                : "Criar"
+            }
+            </button>
+            <button className='createItems__text createItems__button' onClick={() => setMenu(false)}>Fechar</button>
         </div>
     )
 }
